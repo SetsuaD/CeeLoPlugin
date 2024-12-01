@@ -1,0 +1,11 @@
+C:\Users\Owner\Desktop\CeeLoPlugin\CeeLoPlugin\obj\x64\Debug\CeeLoPlugin.csproj.AssemblyReference.cache
+C:\Users\Owner\Desktop\CeeLoPlugin\CeeLoPlugin\obj\x64\Debug\CeeLoPlugin.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Owner\Desktop\CeeLoPlugin\CeeLoPlugin\obj\x64\Debug\CeeLoPlugin.AssemblyInfoInputs.cache
+C:\Users\Owner\Desktop\CeeLoPlugin\CeeLoPlugin\obj\x64\Debug\CeeLoPlugin.AssemblyInfo.cs
+C:\Users\Owner\Desktop\CeeLoPlugin\CeeLoPlugin\obj\x64\Debug\CeeLoPlugin.csproj.CoreCompileInputs.cache
+C:\Users\Owner\Desktop\CeeLoPlugin\CeeLoPlugin\bin\x64\Debug\CeeLo.png
+C:\Users\Owner\Desktop\CeeLoPlugin\CeeLoPlugin\bin\x64\Debug\CeeLoPlugin.deps.json
+C:\Users\Owner\Desktop\CeeLoPlugin\CeeLoPlugin\bin\x64\Debug\CeeLoPlugin.dll
+C:\Users\Owner\Desktop\CeeLoPlugin\CeeLoPlugin\bin\x64\Debug\CeeLoPlugin.pdb
+C:\Users\Owner\Desktop\CeeLoPlugin\CeeLoPlugin\obj\x64\Debug\CeeLoPlugin.dll
+C:\Users\Owner\Desktop\CeeLoPlugin\CeeLoPlugin\obj\x64\Debug\CeeLoPlugin.pdb

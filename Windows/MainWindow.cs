@@ -1,12 +1,16 @@
 using Dalamud.Interface.Windowing;
 using ImGuiNET;
 
-namespace CeeLoPlugin;
+namespace CeeLoPlugin.Windows;
 
 public class MainWindow : Window
 {
-    public MainWindow() : base("CeeLo Plugin")
+    private readonly Plugin _plugin; // Reference to the main plugin instance
+
+    public MainWindow(Plugin plugin) : base("CeeLo Plugin")
     {
+        _plugin = plugin; // Store the plugin instance for future use
+
         Flags = ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoCollapse;
         Size = new System.Numerics.Vector2(400, 300);
     }
@@ -18,7 +22,7 @@ public class MainWindow : Window
         if (ImGui.Button("Start Game"))
         {
             ImGui.Text("Game Starting...");
-            // Game logic can be added here.
+            _plugin.GameLogic?.StartGame();
         }
 
         if (ImGui.Button("Rules"))
@@ -30,6 +34,11 @@ public class MainWindow : Window
         {
             ImGui.Text("CeeLo is a dice game. Roll for a win!");
             ImGui.EndPopup();
+        }
+
+        if (ImGui.Button("Configuration"))
+        {
+            _plugin.OpenConfigUI();
         }
     }
 }
