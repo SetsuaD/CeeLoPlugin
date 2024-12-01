@@ -1,0 +1,10 @@
+{
+  "Name": "CeeLo Plugin",
+  "Version": "1.0.0",
+  "AssemblyVersion": "1.0.0.0",
+  "Author": "YourName",
+  "Description": "A plugin for playing Ceelo in FFXIV.",
+  "Punchline": "Play Ceelo EZ!",
+  "RepoUrl": "https://github.com/your-repo",
+  "Tags": [ "game", "fun", "ceelo" ]
+}
