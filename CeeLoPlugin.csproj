@@ -35,7 +35,7 @@
 
 	<!-- Ensure content like images are copied correctly -->
 	<ItemGroup>
-		<Content Include="CeeLo.png">
+		<Content Include="Images\icon.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<Visible>false</Visible>
 		</Content>

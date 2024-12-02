@@ -54,7 +54,7 @@ public class ConfigWindow : Window, IDisposable
 
         // Max players slider
         var maxPlayers = _configuration.MaxPlayers;
-        if (ImGui.SliderInt("Max Players", ref maxPlayers, 2, 6))
+        if (ImGui.SliderInt("Max Players", ref maxPlayers, 2, 20))
         {
             _configuration.MaxPlayers = maxPlayers;
             _configuration.Save();

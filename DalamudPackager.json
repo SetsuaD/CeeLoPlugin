@@ -1,10 +1,16 @@
 {
+  "Author": "Settzy",
   "Name": "CeeLo Plugin",
-  "Version": "1.0.0",
-  "AssemblyVersion": "1.0.0.0",
-  "Author": "YourName",
-  "Description": "A plugin for playing Ceelo in FFXIV.",
-  "Punchline": "Play Ceelo EZ!",
-  "RepoUrl": "https://github.com/your-repo",
-  "Tags": [ "game", "fun", "ceelo" ]
+  "Punchline": "Roll the dice and play CeeLo!",
+  "RepoUrl": "https://github.com/SetsuaD/CeeLoPlugin.git",
+  "Description": "A plugin to host and play the classic dice game CeeLo in Final Fantasy XIV. Manage players, track rolls, and enjoy a fun social activity in-game.",
+  "InternalName": "CeeLoPlugin",
+  "IconUrl": "Images/icon.png",
+  "ApplicableVersion": "any",
+  "Tags": [
+    "Game",
+    "Dice",
+    "Social",
+    "Entertainment"
+  ]
 }

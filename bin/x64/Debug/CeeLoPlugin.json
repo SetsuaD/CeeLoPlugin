@@ -17,7 +17,7 @@
   "LoadSync": false,
   "CanUnloadAsync": false,
   "LoadPriority": 0,
-  "IconUrl": "https://raw.githubusercontent.com/SetsuaD/CeeLoPlugin/master/CeeLo.png",
+  "IconUrl": "Images/icon.png",
   "Punchline": "Roll the dice and play CeeLo!",
   "AcceptsFeedback": true
 }

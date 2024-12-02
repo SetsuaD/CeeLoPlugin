@@ -5,7 +5,7 @@
   "RepoUrl": "https://github.com/SetsuaD/CeeLoPlugin.git",
   "Description": "A plugin to host and play the classic dice game CeeLo in Final Fantasy XIV. Manage players, track rolls, and enjoy a fun social activity in-game.",
   "InternalName": "CeeLoPlugin",
-  "IconUrl": "https://raw.githubusercontent.com/SetsuaD/CeeLoPlugin/master/CeeLo.png",
+  "IconUrl": "Images/icon.png",
   "ApplicableVersion": "any",
   "Tags": [
     "Game",

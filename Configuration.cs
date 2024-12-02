@@ -10,7 +10,7 @@ public class Configuration : IPluginConfiguration
     public bool EnableFeature { get; set; } = true;
 
     // Configurable maximum number of players in the game.
-    public int MaxPlayers { get; set; } = 4;
+    public int MaxPlayers { get; set; } = 20;
 
     // Allows the configuration window to be moved dynamically.
     public bool IsConfigWindowMovable { get; set; } = true;
@@ -25,7 +25,7 @@ public class Configuration : IPluginConfiguration
     public void ResetToDefaults()
     {
         EnableFeature = true;
-        MaxPlayers = 4;
+        MaxPlayers = 8;
         IsConfigWindowMovable = true;
     }
 }
