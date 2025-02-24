@@ -10,7 +10,7 @@
 		<PlatformTarget>x64</PlatformTarget>
 		<RootNamespace>CeeLoPlugin</RootNamespace>
 		<AssemblyName>CeeLoPlugin</AssemblyName>
-		<Version>1.0.0</Version>
+		<Version>1.0.1</Version>
 		<Description>CeeLo Game Plugin for Dalamud</Description>
 		<OutputType>Library</OutputType>
 		<Nullable>enable</Nullable>
@@ -39,5 +39,8 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<Visible>false</Visible>
 		</Content>
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\ECommons\ECommons\ECommons.csproj" />
 	</ItemGroup>
 </Project>

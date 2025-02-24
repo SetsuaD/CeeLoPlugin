@@ -11,6 +11,16 @@
         "buildMultiTargeting": {
           "buildMultiTargeting/DalamudPackager.props": {}
         }
+      },
+      "ECommons/2.2.0.2": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/ECommons.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ECommons.dll": {}
+        }
       }
     }
   },
@@ -34,11 +44,17 @@
         "tasks/netstandard2.1/Newtonsoft.Json.dll",
         "tasks/netstandard2.1/YamlDotNet.dll"
       ]
+    },
+    "ECommons/2.2.0.2": {
+      "type": "project",
+      "path": "../../ECommons/ECommons/ECommons.csproj",
+      "msbuildProject": "../../ECommons/ECommons/ECommons.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0-windows7.0": [
-      "DalamudPackager >= 11.0.0"
+      "DalamudPackager >= 11.0.0",
+      "ECommons >= 2.2.0.2"
     ]
   },
   "packageFolders": {
@@ -46,13 +62,13 @@
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
-    "version": "1.0.0",
+    "version": "1.0.1",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Owner\\Desktop\\CeeLoPlugin\\CeeLoPlugin\\CeeLoPlugin.csproj",
+      "projectUniqueName": "C:\\Users\\Owner\\Desktop\\FFXIV Projects\\CeeLoPlugin\\CeeLoPlugin\\CeeLoPlugin.csproj",
       "projectName": "CeeLoPlugin",
-      "projectPath": "C:\\Users\\Owner\\Desktop\\CeeLoPlugin\\CeeLoPlugin\\CeeLoPlugin.csproj",
+      "projectPath": "C:\\Users\\Owner\\Desktop\\FFXIV Projects\\CeeLoPlugin\\CeeLoPlugin\\CeeLoPlugin.csproj",
       "packagesPath": "C:\\Users\\Owner\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Owner\\Desktop\\CeeLoPlugin\\CeeLoPlugin\\obj\\",
+      "outputPath": "C:\\Users\\Owner\\Desktop\\FFXIV Projects\\CeeLoPlugin\\CeeLoPlugin\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -66,12 +82,18 @@
         "net8.0-windows"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0-windows7.0": {
           "targetAlias": "net8.0-windows",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Owner\\Desktop\\FFXIV Projects\\ECommons\\ECommons\\ECommons.csproj": {
+              "projectPath": "C:\\Users\\Owner\\Desktop\\FFXIV Projects\\ECommons\\ECommons\\ECommons.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -85,9 +107,9 @@
       "restoreAuditProperties": {
         "enableAudit": "true",
         "auditLevel": "low",
-        "auditMode": "all"
+        "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.100"
+      "SdkAnalysisLevel": "9.0.200"
     },
     "frameworks": {
       "net8.0-windows7.0": {
@@ -114,7 +136,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

@@ -9,3 +9,29 @@ C:\Users\Owner\Desktop\CeeLoPlugin\CeeLoPlugin\bin\x64\Debug\CeeLoPlugin.pdb
 C:\Users\Owner\Desktop\CeeLoPlugin\CeeLoPlugin\obj\x64\Debug\CeeLoPlugin.dll
 C:\Users\Owner\Desktop\CeeLoPlugin\CeeLoPlugin\obj\x64\Debug\CeeLoPlugin.pdb
 C:\Users\Owner\Desktop\CeeLoPlugin\CeeLoPlugin\bin\x64\Debug\Images\icon.png
+D:\VS\CeeLoPlugin\CeeLoPlugin\bin\x64\Debug\Images\icon.png
+D:\VS\CeeLoPlugin\CeeLoPlugin\bin\x64\Debug\CeeLoPlugin.deps.json
+D:\VS\CeeLoPlugin\CeeLoPlugin\bin\x64\Debug\CeeLoPlugin.dll
+D:\VS\CeeLoPlugin\CeeLoPlugin\bin\x64\Debug\CeeLoPlugin.pdb
+D:\VS\CeeLoPlugin\CeeLoPlugin\obj\x64\Debug\CeeLoPlugin.csproj.AssemblyReference.cache
+D:\VS\CeeLoPlugin\CeeLoPlugin\obj\x64\Debug\CeeLoPlugin.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS\CeeLoPlugin\CeeLoPlugin\obj\x64\Debug\CeeLoPlugin.AssemblyInfoInputs.cache
+D:\VS\CeeLoPlugin\CeeLoPlugin\obj\x64\Debug\CeeLoPlugin.AssemblyInfo.cs
+D:\VS\CeeLoPlugin\CeeLoPlugin\obj\x64\Debug\CeeLoPlugin.csproj.CoreCompileInputs.cache
+D:\VS\CeeLoPlugin\CeeLoPlugin\obj\x64\Debug\CeeLoPlugin.dll
+D:\VS\CeeLoPlugin\CeeLoPlugin\obj\x64\Debug\CeeLoPlugin.pdb
+C:\Users\Owner\Desktop\FFXIV Projects\CeeLoPlugin\CeeLoPlugin\bin\x64\Debug\Images\icon.png
+C:\Users\Owner\Desktop\FFXIV Projects\CeeLoPlugin\CeeLoPlugin\bin\x64\Debug\CeeLoPlugin.deps.json
+C:\Users\Owner\Desktop\FFXIV Projects\CeeLoPlugin\CeeLoPlugin\bin\x64\Debug\CeeLoPlugin.dll
+C:\Users\Owner\Desktop\FFXIV Projects\CeeLoPlugin\CeeLoPlugin\bin\x64\Debug\CeeLoPlugin.pdb
+C:\Users\Owner\Desktop\FFXIV Projects\CeeLoPlugin\CeeLoPlugin\bin\x64\Debug\ECommons.dll
+C:\Users\Owner\Desktop\FFXIV Projects\CeeLoPlugin\CeeLoPlugin\bin\x64\Debug\ECommons.pdb
+C:\Users\Owner\Desktop\FFXIV Projects\CeeLoPlugin\CeeLoPlugin\bin\x64\Debug\ECommons.xml
+C:\Users\Owner\Desktop\FFXIV Projects\CeeLoPlugin\CeeLoPlugin\obj\x64\Debug\CeeLoPlugin.csproj.AssemblyReference.cache
+C:\Users\Owner\Desktop\FFXIV Projects\CeeLoPlugin\CeeLoPlugin\obj\x64\Debug\CeeLoPlugin.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Owner\Desktop\FFXIV Projects\CeeLoPlugin\CeeLoPlugin\obj\x64\Debug\CeeLoPlugin.AssemblyInfoInputs.cache
+C:\Users\Owner\Desktop\FFXIV Projects\CeeLoPlugin\CeeLoPlugin\obj\x64\Debug\CeeLoPlugin.AssemblyInfo.cs
+C:\Users\Owner\Desktop\FFXIV Projects\CeeLoPlugin\CeeLoPlugin\obj\x64\Debug\CeeLoPlugin.csproj.CoreCompileInputs.cache
+C:\Users\Owner\Desktop\FFXIV Projects\CeeLoPlugin\CeeLoPlugin\obj\x64\Debug\CeeLoPlu.E04D38F2.Up2Date
+C:\Users\Owner\Desktop\FFXIV Projects\CeeLoPlugin\CeeLoPlugin\obj\x64\Debug\CeeLoPlugin.dll
+C:\Users\Owner\Desktop\FFXIV Projects\CeeLoPlugin\CeeLoPlugin\obj\x64\Debug\CeeLoPlugin.pdb

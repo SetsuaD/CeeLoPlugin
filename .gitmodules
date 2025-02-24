@@ -1,0 +1,3 @@
+[submodule "External/ECommons"]
+	path = External/ECommons
+	url = https://github.com/NightmareXIV/ECommons.git

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "VJ+w3jmPr2Q=",
+  "dgSpecHash": "Dlzs7EPia6k=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Owner\\Desktop\\CeeLoPlugin\\CeeLoPlugin\\CeeLoPlugin.csproj",
+  "projectFilePath": "C:\\Users\\Owner\\Desktop\\FFXIV Projects\\CeeLoPlugin\\CeeLoPlugin\\CeeLoPlugin.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Owner\\.nuget\\packages\\dalamudpackager\\11.0.0\\dalamudpackager.11.0.0.nupkg.sha512"
   ],

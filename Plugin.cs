@@ -1,80 +1,76 @@
+using CeeLoPlugin.Logic;
+using CeeLoPlugin.UIv2;
 using Dalamud.Game.Command;
+using Dalamud.Game.Gui;
+using Dalamud.Interface.Windowing;
 using Dalamud.IoC;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
-using CeeLoPlugin.Windows;
-using CeeLoPlugin.Logic;
-using Dalamud.Game.Gui; // Make sure this is here
+using ECommons;
+using ECommons.DalamudServices;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CeeLoPlugin;
 
 public sealed class Plugin : IDalamudPlugin
 {
-    [PluginService] internal static IDalamudPluginInterface PluginInterface { get; private set; } = null!;
-    [PluginService] internal static ICommandManager CommandManager { get; private set; } = null!;
-    [PluginService] internal static IChatGui ChatGui { get; private set; } = null!; // Make sure this is available
-
     public string Name => "CeeLoPlugin";
 
     public Configuration Configuration { get; private set; }
     public CeeLoGameLogic GameLogic { get; private set; }
 
-    private readonly MainWindow _mainWindow;
-    private readonly ConfigWindow _configWindow;
-    private readonly BetWindow _betWindow; // Instantiate BetWindow here
+    public WindowSystem WindowSystem;
+    public MainWindowV2 MainWindowV2;
+    public ChatSender ChatSender;
 
-    public Plugin()
+    public static Plugin Instance = null!;
+
+    public Plugin(IDalamudPluginInterface dalamudPluginInterface)
     {
-        // Initialize configuration
-        Configuration = PluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
+        Instance = this;
+        ECommonsMain.Init(dalamudPluginInterface, this);
 
-        // Initialize game logic
+        WindowSystem = new();
+        // Draw our windows each frame.
+        Svc.PluginInterface.UiBuilder.Draw += WindowSystem.Draw;
+
+        MainWindowV2 = new();
+        ChatSender = new();
+
+        // Load or create configuration.
+        Configuration = Svc.PluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
+
+        // Initialize game logic.
         GameLogic = new CeeLoGameLogic();
 
-        // Initialize windows
-        _mainWindow = new MainWindow(this);
-        _configWindow = new ConfigWindow(this);
-        _betWindow = new BetWindow(ChatGui); // Pass ChatGui to BetWindow constructor
-
-        // Register the /ceelo command
-        CommandManager.AddHandler("/ceelo", new CommandInfo(OnCommand)
+        // Register a chat command to open the main window.
+        Svc.Commands.AddHandler("/ceelo", new CommandInfo(delegate { MainWindowV2.IsOpen = true; })
         {
             HelpMessage = "Open the CeeLo plugin main window."
         });
 
-        // Register UI event handlers
-        PluginInterface.UiBuilder.Draw += DrawUI;
-        PluginInterface.UiBuilder.OpenMainUi += OpenMainUI;
-        PluginInterface.UiBuilder.OpenConfigUi += OpenConfigUI;
+        // When the config UI is requested, open the main window.
+        Svc.PluginInterface.UiBuilder.OpenConfigUi += () => MainWindowV2.IsOpen = true;
+
+        // Register our main UI callback. When UiBuilder.OpenMainUi is triggered, OpenMainUi() is called.
+        Svc.PluginInterface.UiBuilder.OpenMainUi += OpenMainUi;
     }
 
-    private void OnCommand(string command, string args)
+    /// <summary>
+    /// Called when the main UI should be opened.
+    /// </summary>
+    private void OpenMainUi()
     {
-        OpenMainUI();
-    }
-
-    public void OpenMainUI()
-    {
-        _mainWindow.Toggle();
-    }
-
-    public void OpenConfigUI()
-    {
-        _configWindow.Toggle();
-    }
-
-    private void DrawUI()
-    {
-        _mainWindow.Draw();
-        _configWindow.Draw();
-        _betWindow.Draw(); // Draw BetWindow here
+        MainWindowV2.IsOpen = true;
     }
 
     public void Dispose()
     {
-        CommandManager.RemoveHandler("/ceelo");
-        PluginInterface.UiBuilder.Draw -= DrawUI;
-        PluginInterface.UiBuilder.OpenMainUi -= OpenMainUI;
-        PluginInterface.UiBuilder.OpenConfigUi -= OpenConfigUI;
+        Svc.PluginInterface.UiBuilder.Draw -= WindowSystem.Draw;
+        Svc.Commands.RemoveHandler("/ceelo");
+        // Unregister the OpenMainUi callback to clean up.
+        Svc.PluginInterface.UiBuilder.OpenMainUi -= OpenMainUi;
+        ECommonsMain.Dispose();
+        Instance = null!;
     }
 }
