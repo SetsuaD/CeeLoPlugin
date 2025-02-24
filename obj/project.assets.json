@@ -47,8 +47,8 @@
     },
     "ECommons/2.2.0.2": {
       "type": "project",
-      "path": "../../ECommons/ECommons/ECommons.csproj",
-      "msbuildProject": "../../ECommons/ECommons/ECommons.csproj"
+      "path": "../ECommons/ECommons/ECommons.csproj",
+      "msbuildProject": "../ECommons/ECommons/ECommons.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -90,8 +90,8 @@
         "net8.0-windows7.0": {
           "targetAlias": "net8.0-windows",
           "projectReferences": {
-            "C:\\Users\\Owner\\Desktop\\FFXIV Projects\\ECommons\\ECommons\\ECommons.csproj": {
-              "projectPath": "C:\\Users\\Owner\\Desktop\\FFXIV Projects\\ECommons\\ECommons\\ECommons.csproj"
+            "C:\\Users\\Owner\\Desktop\\FFXIV Projects\\CeeLoPlugin\\ECommons\\ECommons\\ECommons.csproj": {
+              "projectPath": "C:\\Users\\Owner\\Desktop\\FFXIV Projects\\CeeLoPlugin\\ECommons\\ECommons\\ECommons.csproj"
             }
           }
         }

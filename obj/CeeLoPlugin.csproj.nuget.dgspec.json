@@ -33,8 +33,8 @@
           "net8.0-windows7.0": {
             "targetAlias": "net8.0-windows",
             "projectReferences": {
-              "C:\\Users\\Owner\\Desktop\\FFXIV Projects\\ECommons\\ECommons\\ECommons.csproj": {
-                "projectPath": "C:\\Users\\Owner\\Desktop\\FFXIV Projects\\ECommons\\ECommons\\ECommons.csproj"
+              "C:\\Users\\Owner\\Desktop\\FFXIV Projects\\CeeLoPlugin\\ECommons\\ECommons\\ECommons.csproj": {
+                "projectPath": "C:\\Users\\Owner\\Desktop\\FFXIV Projects\\CeeLoPlugin\\ECommons\\ECommons\\ECommons.csproj"
               }
             }
           }
@@ -83,14 +83,14 @@
         }
       }
     },
-    "C:\\Users\\Owner\\Desktop\\FFXIV Projects\\ECommons\\ECommons\\ECommons.csproj": {
+    "C:\\Users\\Owner\\Desktop\\FFXIV Projects\\CeeLoPlugin\\ECommons\\ECommons\\ECommons.csproj": {
       "version": "2.2.0.2",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Owner\\Desktop\\FFXIV Projects\\ECommons\\ECommons\\ECommons.csproj",
+        "projectUniqueName": "C:\\Users\\Owner\\Desktop\\FFXIV Projects\\CeeLoPlugin\\ECommons\\ECommons\\ECommons.csproj",
         "projectName": "ECommons",
-        "projectPath": "C:\\Users\\Owner\\Desktop\\FFXIV Projects\\ECommons\\ECommons\\ECommons.csproj",
+        "projectPath": "C:\\Users\\Owner\\Desktop\\FFXIV Projects\\CeeLoPlugin\\ECommons\\ECommons\\ECommons.csproj",
         "packagesPath": "C:\\Users\\Owner\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Owner\\Desktop\\FFXIV Projects\\ECommons\\ECommons\\obj\\",
+        "outputPath": "C:\\Users\\Owner\\Desktop\\FFXIV Projects\\CeeloPlugin\\ECommons\\ECommons\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

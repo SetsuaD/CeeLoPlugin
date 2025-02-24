@@ -41,6 +41,6 @@
 		</Content>
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\..\ECommons\ECommons\ECommons.csproj" />
+	  <ProjectReference Include="..\ECommons\ECommons\ECommons.csproj" />
 	</ItemGroup>
 </Project>
