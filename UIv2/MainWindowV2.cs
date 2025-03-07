@@ -121,7 +121,8 @@ public class MainWindowV2 : Window
                 {
                     Instance.Configuration.PlayerDatas.Add(new PlayerData()
                     {
-                        NameWithWorld = pc.GetNameWithWorld(),
+                        NameWithWorld = pc.GetNameWithWorld()
+                        // Note: FinalScore remains null until input.
                     });
                 }
                 else
@@ -133,7 +134,7 @@ public class MainWindowV2 : Window
             if (ImGuiEx.IconButtonWithText(FontAwesomeIcon.Sort, "Sort"))
             {
                 Instance.Configuration.PlayerDatas = Instance.Configuration.PlayerDatas
-                    .OrderByDescending(x => string.Join("", x.OrderDeterminingRolls.Select(s => s.ToString("D3"))))
+                    .OrderByDescending(x => x.OrderDeterminingRolls != null ? string.Join("", x.OrderDeterminingRolls.Select(s => s.ToString("D3"))) : "")
                     .ToList();
             }
             ImGui.SameLine();
@@ -158,7 +159,8 @@ public class MainWindowV2 : Window
         });
 
         // --- Row 3: Player Table ---
-        if (ImGuiEx.BeginDefaultTable(new string[] { "~Name", "Roll Order", "Rolls", "Final Score", "##control" }))
+        // Updated table header order: Name, Bet Confirm, Roll Order, Rolls, Final Score, Control.
+        if (ImGuiEx.BeginDefaultTable(new string[] { "~Name", "Bet Confirm", "Roll Order", "Rolls", "Final Score", "##control" }))
         {
             foreach (var player in Instance.Configuration.PlayerDatas)
             {
@@ -174,7 +176,11 @@ public class MainWindowV2 : Window
                 ImGui.SameLine();
                 ImGuiEx.TextV(player.NameWithWorld);
 
-                // Column 2: Roll Order (editable list without add/remove icons)
+                // Column 2: Bet Confirm Checkbox.
+                ImGui.TableNextColumn();
+                ImGui.Checkbox($"##betConfirm{player.ID}", ref player.BetCollected);
+
+                // Column 3: Roll Order (editable list without add/remove icons)
                 ImGui.TableNextColumn();
                 for (var i = 0; i < player.OrderDeterminingRolls.Count; i++)
                 {
@@ -190,7 +196,7 @@ public class MainWindowV2 : Window
                     ImGui.PopID();
                 }
 
-                // Column 3: Game Rolls (3 roll fields)
+                // Column 4: Game Rolls (3 roll fields)
                 ImGui.TableNextColumn();
                 for (var i = 0; i < player.GameRolls.Length; i++)
                 {
@@ -201,12 +207,29 @@ public class MainWindowV2 : Window
                     ImGui.PopID();
                 }
 
-                // Column 4: Final Score (editable)
+                // Column 5: Final Score (editable via InputText)
                 ImGui.TableNextColumn();
                 ImGui.SetNextItemWidth(50);
-                ImGui.InputInt("##finalScore", ref player.FinalScore, 0);
+                // Using a unique label for the input field.
+                if (ImGui.InputText($"##finalScore{player.ID}", ref player.FinalScoreInput, 16))
+                {
+                    // If the input is empty, set FinalScore to null.
+                    if (string.IsNullOrWhiteSpace(player.FinalScoreInput))
+                    {
+                        player.FinalScore = null;
+                    }
+                    else if (int.TryParse(player.FinalScoreInput, out int parsed))
+                    {
+                        player.FinalScore = parsed;
+                    }
+                    else
+                    {
+                        // If parsing fails, reset FinalScore to null.
+                        player.FinalScore = null;
+                    }
+                }
 
-                // Column 5: Winner control (Crown button)
+                // Column 6: Winner control (Crown button)
                 ImGui.TableNextColumn();
                 ImGui.PushFont(UiBuilder.IconFont);
                 ImGuiEx.ButtonCheckbox(FontAwesomeIcon.Crown.ToIconString(), ref player.IsWinner, EColor.Green);
@@ -234,37 +257,84 @@ public class MainWindowV2 : Window
                 int baseTotal = Instance.Configuration.GilBet * Instance.Configuration.PlayerDatas.Count;
                 int houseCutAmount = (int)(baseTotal * (Instance.Configuration.HouseCut / 100f));
                 int totalPot = baseTotal - houseCutAmount;
-                Instance.ChatSender.EnqueueMessage($"Current pot total is {totalPot:N0}. Betting closing soon™!");
+                Instance.ChatSender.EnqueueMessage($"Current pot total is {totalPot:N0}.");
             }
             ImGui.SameLine();
+            // Updated Announce Last Chance button with bet confirmation details.
             if (ImGuiEx.IconButtonWithText(FontAwesomeIcon.Clock, "Announce Last Chance"))
             {
-                Instance.ChatSender.EnqueueMessage("Last chance to place your bet. Closing in 5 seconds.");
+                var notConfirmed = Instance.Configuration.PlayerDatas
+                    .Where(p => !p.BetCollected)
+                    .Select(p => p.NameWithWorld);
+                string notConfirmedList = notConfirmed.Any() ? string.Join(", ", notConfirmed) : "None";
+                Instance.ChatSender.EnqueueMessage($"Last chance to place your bet. Closing in 5 seconds. Waiting on: {notConfirmedList} for bet trade still.");
             }
             ImGui.SameLine();
+            // --- Updated Bets Closed Button ---
             if (ImGuiEx.IconButtonWithText(FontAwesomeIcon.Stop, "Announce Bets Closed"))
             {
-                Instance.ChatSender.EnqueueMessage("Bets Closed. Roll for order! (/random 99)");
+                int baseTotal = Instance.Configuration.GilBet * Instance.Configuration.PlayerDatas.Count;
+                int houseCutAmount = (int)(baseTotal * (Instance.Configuration.HouseCut / 100f));
+                int totalPot = baseTotal - houseCutAmount;
+                Instance.ChatSender.EnqueueMessage($"Bets CLOSED. Current Pot Total is: {totalPot:N0}. Moving to Roll Order Phase! (/random 99)");
             }
         });
 
         // --- Row 5: Dealer Announcements (Roll Order & Turns) ---
         ImGuiEx.LineCentered("Dealer Announcements (Roll Order & Turns)", () =>
         {
+            // New: Recall For RollOrder (moved to far left)
+            if (ImGuiEx.IconButtonWithText(FontAwesomeIcon.Retweet, "Recall For RollOrder"))
+            {
+                // Find players with missing or default (0) roll order in their first value.
+                var missingRollOrderPlayers = Instance.Configuration.PlayerDatas
+                    .Where(p => p.OrderDeterminingRolls.Count == 0 || p.OrderDeterminingRolls[0] == 0)
+                    .Select(p => p.NameWithWorld);
+                if (missingRollOrderPlayers.Any())
+                {
+                    string names = string.Join(", ", missingRollOrderPlayers);
+                    Instance.ChatSender.EnqueueMessage($"Waiting on Roll Order Roll for: {names}. Please /random 99 for Roll Order.");
+                }
+            }
+            ImGui.SameLine();
+            // New: RollOrderTie button with updated message
+            if (ImGuiEx.IconButtonWithText(FontAwesomeIcon.ExclamationTriangle, "RollOrderTie"))
+            {
+                // Group players by their first roll order value and select groups with duplicates (non-zero)
+                var tiedGroups = Instance.Configuration.PlayerDatas
+                    .Where(p => p.OrderDeterminingRolls.Count > 0)
+                    .GroupBy(p => p.OrderDeterminingRolls[0])
+                    .Where(g => g.Count() > 1 && g.Key != 0);
+                if (tiedGroups.Any())
+                {
+                    // Create a comma-separated list of all tied players' names.
+                    var tiedPlayers = tiedGroups.SelectMany(g => g).Select(p => p.NameWithWorld).Distinct();
+                    string tiedList = tiedPlayers.Any() ? string.Join(", ", tiedPlayers) : "None";
+                    Instance.ChatSender.EnqueueMessage($"Players {tiedList} please reroll. (/random 99)");
+                }
+            }
+            ImGui.SameLine();
+            // Existing: Announce Roll Order
             if (ImGuiEx.IconButtonWithText(FontAwesomeIcon.List, "Announce Roll Order"))
             {
                 var rollOrder = string.Join(", ", Instance.Configuration.PlayerDatas
-                    .OrderByDescending(x => string.Join("", x.OrderDeterminingRolls.Select(s => s.ToString("D3"))))
+                    .OrderByDescending(x => x.OrderDeterminingRolls != null ? string.Join("", x.OrderDeterminingRolls.Select(s => s.ToString("D3"))) : "")
                     .Select(x => x.NameWithWorld));
                 Instance.ChatSender.EnqueueMessage($"Roll order sorted! Current roll order is: {rollOrder}.");
             }
             ImGui.SameLine();
+            // Updated: Call Next Player uses only players with FinalScore == null.
             if (ImGuiEx.IconButtonWithText(FontAwesomeIcon.UserCheck, "Call Next Player"))
             {
-                var nextPlayer = Instance.Configuration.PlayerDatas.FirstOrDefault(x => x.FinalScore <= 0);
+                var nextPlayer = Instance.Configuration.PlayerDatas.FirstOrDefault(x => x.FinalScore == null);
                 if (nextPlayer != null)
                 {
-                    Instance.ChatSender.EnqueueMessage($"{nextPlayer.NameWithWorld}, Roll your dice! (/random 6 three times)");
+                    // Get the most recent player that has a score (last scored) from the list.
+                    var recentPlayer = Instance.Configuration.PlayerDatas.LastOrDefault(x => x.FinalScore.HasValue);
+                    string recentText = recentPlayer != null
+                        ? $"{recentPlayer.NameWithWorld} has scored a {recentPlayer.FinalScore.Value}. "
+                        : "";
+                    Instance.ChatSender.EnqueueMessage($"{recentText}{nextPlayer.NameWithWorld}, Roll your dice! (/random 6 three times)");
                 }
                 else
                 {
@@ -272,9 +342,10 @@ public class MainWindowV2 : Window
                 }
             }
             ImGui.SameLine();
+            // Updated: Roll Again uses only players with FinalScore == null.
             if (ImGuiEx.IconButtonWithText(FontAwesomeIcon.Redo, "Roll Again"))
             {
-                var nextPlayer = Instance.Configuration.PlayerDatas.FirstOrDefault(x => x.FinalScore <= 0);
+                var nextPlayer = Instance.Configuration.PlayerDatas.FirstOrDefault(x => x.FinalScore == null);
                 if (nextPlayer != null)
                 {
                     Instance.ChatSender.EnqueueMessage($"{nextPlayer.NameWithWorld}, No score. Roll again. (/random 6 three times)");
@@ -286,15 +357,60 @@ public class MainWindowV2 : Window
             }
         });
 
+        // --- NEW Row: Tie Breaker Options ---
+        ImGuiEx.LineCentered("Tie Breaker Options", () =>
+        {
+            // Multi-Tie Button: For 3 or more players tying.
+            if (ImGuiEx.IconButtonWithText(FontAwesomeIcon.Users, "Multi-Tie"))
+            {
+                var multiTieGroup = Instance.Configuration.PlayerDatas
+                    .Where(p => p.FinalScore.HasValue)
+                    .GroupBy(p => p.FinalScore.Value)
+                    .Where(g => g.Count() >= 3)
+                    .FirstOrDefault();
+                if (multiTieGroup != null)
+                {
+                    var names = string.Join(", ", multiTieGroup.Select(p => p.NameWithWorld));
+                    Instance.ChatSender.EnqueueMessage($"Game has ended in a multi-tie. These players, {names} will re-roll order and re-score to win the pot. Roll for order {names}! (/random 99)");
+                }
+                else
+                {
+                    Notify.Error("No multi-tie detected.");
+                }
+            }
+            ImGui.SameLine();
+            // 2-Player Tie (Roulette) Button.
+            if (ImGuiEx.IconButtonWithText(FontAwesomeIcon.Dice, "Roulette"))
+            {
+                var twoTieGroup = Instance.Configuration.PlayerDatas
+                    .Where(p => p.FinalScore.HasValue)
+                    .GroupBy(p => p.FinalScore.Value)
+                    .Where(g => g.Count() == 2)
+                    .FirstOrDefault();
+                if (twoTieGroup != null)
+                {
+                    var names = string.Join(", ", twoTieGroup.Select(p => p.NameWithWorld));
+                    int baseTotal = Instance.Configuration.GilBet * Instance.Configuration.PlayerDatas.Count;
+                    int houseCutAmount = (int)(baseTotal * (Instance.Configuration.HouseCut / 100f));
+                    int totalPot = baseTotal - houseCutAmount;
+                    Instance.ChatSender.EnqueueMessage($"{names} tied. These two will now face off in a game of chance. Roll for order (/random 99) and high roll goes first. You will roll (/random 6) and the first to score a 1 loses. The next player will roll (/random 5) and it counts down each roll. Winner takes all of {totalPot:N0}!");
+                }
+                else
+                {
+                    Notify.Error("No two-player tie detected.");
+                }
+            }
+        });
+
         // --- Row 6: Winner Announcement ---
         ImGuiEx.LineCentered("Winner Announcement", () =>
         {
             if (ImGuiEx.IconButtonWithText(FontAwesomeIcon.Crown, "Announce Current Winner"))
             {
-                var currentWinner = Instance.Configuration.PlayerDatas.OrderByDescending(x => x.FinalScore).FirstOrDefault();
+                var currentWinner = Instance.Configuration.PlayerDatas.OrderByDescending(x => x.FinalScore ?? 0).FirstOrDefault();
                 if (currentWinner != null)
                 {
-                    Instance.ChatSender.EnqueueMessage($"{currentWinner.NameWithWorld} is the highest score with {currentWinner.FinalScore:N0}.");
+                    Instance.ChatSender.EnqueueMessage($"{currentWinner.NameWithWorld} is the highest score with {(currentWinner.FinalScore.HasValue ? currentWinner.FinalScore.Value.ToString("N0") : "No Score")}.");
                 }
                 else
                 {
@@ -308,10 +424,13 @@ public class MainWindowV2 : Window
         {
             if (ImGuiEx.IconButtonWithText(FontAwesomeIcon.FlagCheckered, "Announce Final Winner"))
             {
-                var finalWinner = Instance.Configuration.PlayerDatas.OrderByDescending(x => x.FinalScore).FirstOrDefault();
+                var finalWinner = Instance.Configuration.PlayerDatas.OrderByDescending(x => x.FinalScore ?? 0).FirstOrDefault();
                 if (finalWinner != null)
                 {
-                    Instance.ChatSender.EnqueueMessage($"{finalWinner.NameWithWorld} is the final winner with {finalWinner.FinalScore:N0}.");
+                    int baseTotal = Instance.Configuration.GilBet * Instance.Configuration.PlayerDatas.Count;
+                    int houseCutAmount = (int)(baseTotal * (Instance.Configuration.HouseCut / 100f));
+                    int totalPot = baseTotal - houseCutAmount;
+                    Instance.ChatSender.EnqueueMessage($"{finalWinner.NameWithWorld} is the final winner with {(finalWinner.FinalScore.HasValue ? finalWinner.FinalScore.Value.ToString("N0") : "No Score")}. They win the pot totalling {totalPot:N0}! Trading {finalWinner.NameWithWorld} Now!");
                 }
                 else
                 {
