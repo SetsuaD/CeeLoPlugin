@@ -1,0 +1,25 @@
+[
+  {
+    "Author": "SetsuaD",
+    "Name": "CeeLoPlugin",
+    "Punchline": "Track player participation and dice rolls in Ceelo with ease!",
+    "Description": "CeeLoPlugin assists dealers in managing rounds of Ceelo by recording dice rolls, tracking bets, and automatically determining winners. It streamlines game management with integrated chat announcements and real-time data updates.",
+    "Changelog": "Initial release with player management, dice roll recording, and chat announcement functionality.",
+    "IsHide": false,
+    "InternalName": "CeeLoPlugin",
+    "AssemblyVersion": "1.0.0.0",
+    "TestingAssemblyVersion": "1.0.0.0",
+    "IsTestingExclusive": false,
+    "RepoUrl": "https://github.com/SetsuaD/CeeLoPlugin",
+    "ApplicableVersion": "any",
+    "DalamudApiLevel": 11,
+    "TestingDalamudApiLevel": 11,
+    "DownloadCount": 0,
+    "LastUpdate": 1740140791,
+    "DownloadLinkInstall": "https://github.com/SetsuaD/CeeLoPlugin/releases/download/1.0.0/latest.zip",
+    "DownloadLinkUpdate": "https://github.com/SetsuaD/CeeLoPlugin/releases/download/1.0.0/latest.zip",
+    "DownloadLinkTesting": "https://github.com/SetsuaD/CeeLoPlugin/releases/download/1.0.0/latest.zip",
+    "SupportsProfiles": true,
+    "IconUrl": "https://raw.githubusercontent.com/SetsuaD/CeeLoPlugin/main/Resources/icon.png"
+  }
+]
