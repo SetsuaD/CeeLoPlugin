@@ -16,9 +16,9 @@
     "TestingDalamudApiLevel": 11,
     "DownloadCount": 0,
     "LastUpdate": 1740140791,
-    "DownloadLinkInstall": "https://github.com/SetsuaD/CeeLoPlugin/releases/download/1.0.0/latest.zip",
-    "DownloadLinkUpdate": "https://github.com/SetsuaD/CeeLoPlugin/releases/download/1.0.0/latest.zip",
-    "DownloadLinkTesting": "https://github.com/SetsuaD/CeeLoPlugin/releases/download/1.0.0/latest.zip",
+    "DownloadLinkInstall": "https://github.com/SetsuaD/CeeLoPlugin/releases/download/1.0/CeeloPluginV1.zip",
+    "DownloadLinkUpdate": "https://github.com/SetsuaD/CeeLoPlugin/releases/download/1.0/CeeloPluginV1.zip",
+    "DownloadLinkTesting": "https://github.com/SetsuaD/CeeLoPlugin/releases/download/1.0/CeeloPluginV1.zip",
     "SupportsProfiles": true,
     "IconUrl": "https://raw.githubusercontent.com/SetsuaD/CeeLoPlugin/main/Resources/icon.png"
   }
