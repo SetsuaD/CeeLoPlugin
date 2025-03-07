@@ -1,108 +1,58 @@
 # CeeLoPlugin
 
-CeeLoPlugin is a Final Fantasy XIV plugin that manages the Ceelo dice game. It helps track player participation, record dice rolls, announce status updates (like new rounds and bets), and finally determine the winner.
+## Overview
+CeeLoPlugin is a plugin for FFXIV that helps manage Ceelo game sessions by tracking player participation, dice rolls, bets, and more. It features dynamic plugin updates, improved UI, and several automated announcements for game events.
 
 ## Features
+- **Dynamic Plugin Update:** Automatically checks for plugin updates via a JSON file.
+- **Bet Management:** Players can confirm their bets using a checkbox; announcements include details of pending bet confirmations.
+- **Dice Roll and Score Management:** Tracks game rolls, calculates final scores, and calls the next player automatically.
+- **Tie-Breaker Handling:** Special buttons for handling multi-tie and two-player tie scenarios.
+- **Detailed Announcements:** Announces new rounds, bet totals, roll orders, and final winners with clear, formatted text.
+- **Logging:** Save logs and manage log folder paths.
 
-- **Dynamic Plugin Update**  
-  Automatically checks for plugin updates using a JSON file.  
-  Check for updates at: [Repo JSON](https://raw.githubusercontent.com/SetsuaD/CeeLoPlugin/master/Repo.json)
+## Commit Changelog (v1.1)
+- **Dynamic Plugin Update:**  
+  - Enabled dynamic update functionality using a JSON file (Repo.json) hosted at [Repo.json](https://raw.githubusercontent.com/SetsuaD/CeeLoPlugin/master/Repo.json).
+- **Tie-Breaker Enhancements:**  
+  - Added **Multi-Tie** button to handle scenarios with 3+ tied players.  
+  - Added **Two-Player Tie (Roulette)** button to initiate a face-off for tied players with special roll rules.
+- **Bet Confirmation:**  
+  - Implemented a bet confirmation checkbox for each player in the table.  
+  - Updated "Announce Last Chance" to include a list of players pending bet confirmation.
+- **Roll Order and Next Player Logic:**  
+  - Enhanced the "Call Next Player" functionality to announce the previous player's score along with calling the next player.
+- **Final Winner Announcement:**  
+  - Revised the announcement to include the current pot total and transfer instructions.
+- **UI Enhancements & Bug Fixes:**  
+  - Reorganized the UI button layout and table columns for clearer presentation.  
+  - Improved number formatting (added commas for readability) and fixed final score handling.
 
-- **Player Management**  
-  - Add players by targeting, or add fake players for testing.
-  - Remove or sort players.
-  - Confirm bet trades with a dedicated checkbox.
-
-- **Roll Recording**  
-  - Record roll order, three dice roll fields, and final scores.
-  - Input final scores via editable fields (blank means no score yet).
-
-- **Announcements & Tie-breakers**  
-  - Announce new rounds, set bets, display pot totals, and call next players.
-  - Handle tie-breaker scenarios:
-    - **Multi-Tie**: For 3 or more players tying, prompt a re-roll order and re-scoring.
-    - **Two-Player Tie (Roulette)**: For two players tying, initiate a roulette-style face-off.
-
-- **Logging**  
-  - Save in-game logs to a file and view them in a dedicated log tab.
+## Task List
+- [x] Implement dynamic plugin update via Repo.json.
+- [x] Add tie-breaker buttons (Multi-Tie and Two-Player Tie) with appropriate announcements.
+- [x] Add bet confirmation checkbox and update "Announce Last Chance" to list pending confirmations.
+- [x] Enhance "Call Next Player" functionality to include the previous player's score.
+- [x] Update final winner announcement to include the current pot total.
+- [ ] (Ongoing) Consider auto-receive trades and additional trade confirmation UI.
+- [ ] (Ongoing) Refactor UI logic into separate files for better maintainability.
 
 ## How to Use
-
-1. **Setup & Configuration**  
-   - Open the configuration UI via the `/ceelo` chat command or through Dalamud’s config interface.
-   - Set game parameters like **GIL Bet** and **House Cut (%)**.
-   - Optionally, set a custom log folder path.
-
-2. **Gameplay Workflow**  
-   - **Player Management:**  
-     Use the "Add Target" button to add players, sort the list, or add fake players for testing.  
-     Confirm bets by checking the Bet Confirm checkbox for each player.
-
-   - **Roll Recording:**  
-     Enter roll orders, record three dice rolls per player, and input the final score.  
-     A blank final score indicates that the player hasn’t yet scored (even a score of 0 is considered a valid final score).
-
-   - **Announcements:**  
-     Use dedicated buttons to announce:
-     - New rounds and bet details.
-     - Current pot total (calculated as _Bet × Number of Players - House Cut%_).
-     - Last chance messages (including names of players who haven’t confirmed their bet trades).
-     - Roll order announcements, calling the next player, and re-rolling instructions.
-     - Tie-breaker messages for both multi-tie and two-player tie (roulette) scenarios.
-
-   - **Final Winner:**  
-     Announce the final winner along with their final score and the pot total, then execute the trade.
-
-## How to Play Ceelo
-
-Ceelo is a dice game where players compete to achieve the highest score or specific combinations. Here’s a brief rundown:
-
-1. **New Round:**  
-   The dealer announces a new round with a bet range (e.g., "100k to 100m") and prompts players to suggest bets.
-
-2. **Bet Setting:**  
-   The dealer sets the round bet based on suggestions and announces the final bet.
-
-3. **Pot Total Calculation:**  
-   The dealer announces the pot total, which is calculated as:  
-   **Pot Total = (Bet × Number of Players) - (House Cut%)**
-
-4. **Finalizing Bets:**  
-   A last chance announcement is made before closing bets. The announcement also lists players who have not yet confirmed their bet trade.
-
-5. **Roll Order:**  
-   Players roll for order (using `/random 99`) and then roll dice (using `/random 6` three times) in turn.  
-   If a tie occurs:
-   - **Multi-Tie:** Players tied will re-roll order and re-score.
-   - **Two-Player Tie (Roulette):** The two tied players face off in a roulette-style challenge, where the first to roll a losing number loses.
-
-6. **Final Scoring:**  
-   The dealer enters final scores. A blank field means no score has been recorded, while a 0 is a valid score.  
-   The next player is called only when the previous player’s score is settled.
-
-7. **Winner Announcement:**  
-   The final winner is announced along with their score and the total pot, and then the trade is executed.
-
-## Version History
-
-- **v1.1**
-  - Dynamic plugin update enabled (JSON file available at [Repo JSON](https://raw.githubusercontent.com/SetsuaD/CeeLoPlugin/master/Repo.json)).
-  - Tie-breaker buttons for multi-tie and two-player tie (roulette) scenarios added.
-  - Improved bet confirmation handling and announcement messages.
-  - Various bug fixes and UI enhancements.
+1. **Configuration:**  
+   - Set the chat channel, GIL Bet, and House Cut percentages.  
+   - Optionally override the log folder path.
+2. **Game Setup:**  
+   - Add players via target selection or by adding fake players.  
+   - Confirm bet trades using the bet confirmation checkbox.
+3. **Game Flow:**  
+   - Use the provided buttons to announce new rounds, set bets, call for rolls, and handle tie-breakers.
+4. **Logging:**  
+   - Save and review logs directly within the plugin.
+5. **Updates:**  
+   - The plugin automatically checks for updates via the provided Repo.json URL.
 
 ## Installation
-
-1. Clone or download the repository.
-2. Ensure that ECommons is set up as a dependency.
-3. Install the plugin using Dalamud’s plugin installer.
-4. Enjoy playing Ceelo in FFXIV!
-
-## Contributing
-
-Contributions are welcome! Please fork the repository, submit issues, and open pull requests with your changes.
+Clone this repository and ensure that ECommons is set up as a submodule. Follow the build instructions provided in the repository.
 
 ## License
-
-This project is licensed under the [MIT License](LICENSE).
-
+This project is licensed under the MIT License.
