@@ -1,108 +1,63 @@
-# CeeLoPlugin
+# CeeLoPlugin v1.1
 
-CeeLoPlugin is a Dalamud plugin for Final Fantasy XIV that helps dealers manage rounds of Ceelo. It allows you to track player participation, record dice rolls, manage bets, and automatically announce round status and winners via in-game chat.
-
-## Features
-
-- **Player Management:**  
-  - Add a target directly from your current in-game selection.
-  - Add fake players for testing.
-  - Remove or sort players as needed.
-
-- **Dice Roll Recording:**  
-  - Record individual dice rolls and enter final scores.
-  - Automatically determine roll order based on input.
-
-- **Dealer Announcements:**  
-  - Announce new rounds, set bets, and report pot totals (with proper comma formatting).
-  - Call players to roll, announce roll order, and finalize winners.
-  - Customizable chat messages for clear in-game instructions.
-
-- **Logging:**  
-  - View real-time log entries for game events.
+**CeeLoPlugin** is a FFXIV plugin that allows a game dealer to track player participation and dice rolls for the Ceelo game. It supports player addition, roll recording, dynamic announcements in chat, tie-breaker mechanisms, and more.
 
 ## How to Use
 
-1. **Opening the Plugin UI:**  
-   - Use the `/ceelo` command in-game to open the plugin's main window.
-   - The plugin has three main tabs:
-     - **Configuration Tab:**  
-       Configure communication settings, adjust game parameters (bet amount and house cut), and set the log folder path.
-     - **Game (Roll Recording) Tab:**  
-       Manage players, record dice rolls, and use dealer announcement buttons.
-     - **Log Tab:**  
-       View and save logs of game events.
+1. **Configuration Tab:**
+   - **Communication Mode Settings:** Choose the chat channel used for announcements.
+   - **Game Parameters:** Set the GIL Bet and House Cut percentage.
+   - **Log Folder Override:** Specify a custom folder for log files.
 
-2. **Player Management:**  
-   - **Advertise:**  
-     Send a welcome message and instructions before starting a game.
-   - **Add Target:**  
-     Add the currently selected player to the game.
-   - **Sort:**  
-     Sort players based on roll order.
-   - **Add Fake:**  
-     Add fake players for testing purposes.
-   - **Remove Player:**  
-     Use the trash icon next to a player's name to manually remove them from the list.
+2. **Game (Roll Recording) Tab:**
+   - **Advertise:** Announce introductory game instructions in chat.
+   - **Player Management:** Add a target (if selected in-game), sort players, or add fake players.
+   - **Player Table:** 
+     - Enter roll orders, game rolls, and final scores.
+     - Confirm bet receipt with the checkbox.
+     - Use the crown button to designate a winner.
+   - **Dealer Announcements:**
+     - Announce new round, set round bet, announce pot total, announce last chance (with list of players who haven’t confirmed their bet), and close bets.
+     - Roll order and turn announcements include options such as recall for roll order, handling ties (RollOrderTie), and calling next or re-rolling players.
+   - **Tie Breaker Options:**
+     - **Multi-Tie:** For three or more players tying, this button announces that the tied players must re-roll for order and re-score.
+     - **Roulette:** For a two-player tie, this button announces a face-off “roulette” where the players roll dice to determine the winner.
+   - **Winner Announcements:** Announce the current or final winner (final winner announcement includes the pot total).
+   - **Game Controls:** Start a new game or clear the player table to restart the round.
 
-3. **Dice Roll Recording and Announcements:**  
-   - Enter individual roll values and the final score for each player in the provided fields.
-   - Use buttons to:
-     - **Announce New Round:**  
-       Prompt players to suggest bets.
-     - **Set Round Bet:**  
-       Announce the current round bet.
-     - **Announce Pot Total:**  
-       Display the current pot total, calculated as `Bet × Player Count – House Cut` (numbers are formatted with commas).
-     - **Announce Last Chance:**  
-       Alert players that it is their final chance to place bets.
-     - **Announce Bets Closed:**  
-       Notify that no further bets will be accepted.
-     - **Announce Roll Order:**  
-       Automatically sort and announce the player roll order.
-     - **Call Next Player / Roll Again:**  
-       Prompt players to roll or reroll as necessary.
-     - **Finalize Winner:**  
-       Announce the winner and the final pot (with additional manual verification if required).
-     - **Announce Current Winner:**  
-       Show the current highest scoring player.
-     - **Announce Final Winner:**  
-       Confirm the final winner at the end of the round.
+3. **Log Tab:**
+   - Save the log to a file.
+   - Optionally add fake lines for testing.
+   - Override the log folder path.
 
-4. **In-Game Chat:**  
-   All announcements are sent via in-game chat, with numbers formatted with commas for readability.
+## Current Task List
 
-## How to Play Ceelo
+- **[x] Tie Breaker Buttons (Multi-Tie & 2-Player Tie/Roulette):**  
+  Implemented – see Tie Breaker Options row.
 
-Ceelo is a dice game where players compete against each other in rounds. The basic rules are as follows:
+- **[x] Final Score Input Logic:**  
+  Final score fields are now blank by default. A blank field is interpreted as “no score” so that a zero must be manually entered to count.
 
-1. **Starting a Round:**  
-   The dealer announces a new round with a betting range (e.g., 100k to 100m gil) and asks for players' bet suggestions.
+- **[x] Bet Confirm Checkbox:**  
+  Added to the player table and integrated into the “Announce Last Chance” message.
 
-2. **Placing Bets:**  
-   After suggestions, the dealer sets the round bet and instructs players to place their bets accordingly.
+- **[ ] Modularize Code:**  
+  Consider refactoring code from `MainWindowV2.cs` into smaller, focused classes/files for better maintainability.
 
-3. **Rolling for Order:**  
-   Players roll dice to determine the roll order.  
-   - Use `/random 99` to decide order.
-   - In the event of a tie, a tie breaker is conducted until a unique order is established.
+- **[ ] Auto-Receive Trades & Target Confirmation:**  
+  Implement auto-receive trades and add a “confirm gil trade” button and amount field for automatically processing bet trades (code to be harvested from the Dropbox plugin).
 
-4. **Rolling for Score:**  
-   Each player takes turns to roll the dice (typically using `/random 6 three times` for their turn).
-   - The final score is recorded for each player.
-   - If a player scores 0, they may be prompted to roll again.
+- **[ ] Dynamic Plugin Update System:**  
+  (Optional) Integrate a JSON-based dynamic update system if desired in future updates.
 
-5. **Determining the Winner:**  
-   Once all players have rolled:
-   - The player with the highest final score is declared the winner.
-   - The pot is calculated as `(Bet × Number of Players) – House Cut`.
-   - The winner receives the pot (further manual confirmation of bet payment may be required).
+## Version History
 
-6. **Additional Announcements:**  
-   The plugin supports further dynamic announcements, such as reminding players to complete their roll order or instructing players to trade the dealer directly for bets when the pot is locked in.
-
-Enjoy playing Ceelo and managing your game with ease using CeeLoPlugin!
+- **v1.1:**  
+  - Updated version record.
+  - Added tie-breaker buttons and messages.
+  - Improved final score and bet confirmation logic.
+  - Updated announcements with proper formatting and pot total calculations.
 
 ---
 
-Happy Gaming!
+*To update your plugin repository, commit these changes, tag the release as v1.1, and push to GitHub.*
