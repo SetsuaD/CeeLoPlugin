@@ -1,7 +1,6 @@
 C:\Users\Owner\Desktop\FFXIV Projects\CeeLoPlugin\CeeLoPlugin\bin\x64\Release\Images\icon.png
 C:\Users\Owner\Desktop\FFXIV Projects\CeeLoPlugin\CeeLoPlugin\bin\x64\Release\CeeLoPlugin.deps.json
 C:\Users\Owner\Desktop\FFXIV Projects\CeeLoPlugin\CeeLoPlugin\bin\x64\Release\CeeLoPlugin.dll
-C:\Users\Owner\Desktop\FFXIV Projects\CeeLoPlugin\CeeLoPlugin\bin\x64\Release\CeeLoPlugin.pdb
 C:\Users\Owner\Desktop\FFXIV Projects\CeeLoPlugin\CeeLoPlugin\bin\x64\Release\ECommons.dll
 C:\Users\Owner\Desktop\FFXIV Projects\CeeLoPlugin\CeeLoPlugin\bin\x64\Release\ECommons.pdb
 C:\Users\Owner\Desktop\FFXIV Projects\CeeLoPlugin\CeeLoPlugin\bin\x64\Release\ECommons.xml
@@ -13,4 +12,3 @@ C:\Users\Owner\Desktop\FFXIV Projects\CeeLoPlugin\CeeLoPlugin\obj\x64\Release\Ce
 C:\Users\Owner\Desktop\FFXIV Projects\CeeLoPlugin\CeeLoPlugin\obj\x64\Release\CeeLoPlugin.sourcelink.json
 C:\Users\Owner\Desktop\FFXIV Projects\CeeLoPlugin\CeeLoPlugin\obj\x64\Release\CeeLoPlu.E04D38F2.Up2Date
 C:\Users\Owner\Desktop\FFXIV Projects\CeeLoPlugin\CeeLoPlugin\obj\x64\Release\CeeLoPlugin.dll
-C:\Users\Owner\Desktop\FFXIV Projects\CeeLoPlugin\CeeLoPlugin\obj\x64\Release\CeeLoPlugin.pdb

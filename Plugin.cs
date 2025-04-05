@@ -17,7 +17,7 @@ public sealed class Plugin : IDalamudPlugin
     public string Name => "CeeLoPlugin";
 
     // Updated plugin version record.
-    public const string PluginVersion = "1.1";
+    public const string PluginVersion = "1.3";
     public static string Version => PluginVersion;
 
     public Configuration Configuration { get; private set; }
