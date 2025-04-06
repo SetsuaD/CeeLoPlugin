@@ -109,6 +109,7 @@ public class MainWindowV2 : Window
                 Instance.ChatSender.EnqueueMessage("Hello to new players joining us! The game is called Ceelo. Players compete against each other as a group, with the winner taking the pot!");
                 Instance.ChatSender.EnqueueMessage("Join at the start of a round by trading the dealer the current bet. Then /random 99 to get roll order. Then /random 6 three times when it's your turn to score!");
                 Instance.ChatSender.EnqueueMessage("See complete rules at: setsunai.settzyvents.com and join our discord at: https://discord.gg/uSG7Y2RtZ7");
+                Instance.ChatSender.EnqueueMessage("Note: Hard 456 Instant Wins. Hard 123 Instant Loses. Soft 123(213/etc) is a no score. Soft 456(546/etc) is >1-6 but <111-666 Triples Scores.");
             }
         });
 
@@ -276,6 +277,22 @@ public class MainWindowV2 : Window
                 RollActions.RollAgain();
         });
 
+        // --- New Row: Tie Resolution ---
+        ImGuiEx.LineCentered("Tie Resolution", () =>
+        {
+            if (ImGuiEx.IconButtonWithText(FontAwesomeIcon.Handshake, "Announce Tie"))
+                RollActions.ResolveTie();
+            ImGui.SameLine();
+            if (ImGuiEx.IconButtonWithText(FontAwesomeIcon.CheckDouble, "Split Tie"))
+                RollActions.ResolveTieSplit();
+            ImGui.SameLine();
+            if (ImGuiEx.IconButtonWithText(FontAwesomeIcon.Dice, "Roulette Tie"))
+                RollActions.ResolveTieRoulette();
+            ImGui.SameLine();
+            if (ImGuiEx.IconButtonWithText(FontAwesomeIcon.Users, "Multi Tie"))
+                RollActions.ResolveMultiTie();
+        });
+
         // --- Row 6: Winner Announcement ---
         ImGuiEx.LineCentered("Winner Announcement", () =>
         {
@@ -289,6 +306,7 @@ public class MainWindowV2 : Window
             if (ImGuiEx.IconButtonWithText(FontAwesomeIcon.FlagCheckered, "Announce Final Winner"))
                 RollActions.AnnounceFinalWinner();
         });
+
 
         // --- Row 8: Game Controls ---
         ImGuiEx.LineCentered("Game Controls", () =>
@@ -321,8 +339,11 @@ public class MainWindowV2 : Window
             if (ImGuiEx.IconButtonWithText(FontAwesomeIcon.Undo, "Start Over Button"))
             {
                 Instance.Configuration.PlayerDatas.Clear();
-                Notify.Info("Player table cleared. Game restarted.");
+                Instance.Configuration.GilBet = 1_000_000; // Reset bet to 1,000,000 gil
+                Instance.Configuration.Save();          // Save configuration changes
+                Notify.Info("Player table cleared. Game restarted. Bet reset to 1,000,000 gil.");
             }
+
         });
     }
 

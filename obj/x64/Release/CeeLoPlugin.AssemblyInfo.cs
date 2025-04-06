@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("CeeLo Game Plugin for Dalamud")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.3.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.3+2a80edd898a4813e38b72d2e7c2eddd7753d850f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.3+43d3365689d449544982976b01fb78ee14663e34")]
 [assembly: System.Reflection.AssemblyProductAttribute("CeeLoPlugin")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CeeLoPlugin")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.3.0.0")]
