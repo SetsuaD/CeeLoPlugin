@@ -148,9 +148,9 @@ namespace CeeLoPlugin.Logic
                 bool allCrowned = tiedPlayers.All(p => p.IsWinner);
                 string names = string.Join(", ", tiedPlayers.Select(p => p.NameWithWorld));
                 if (allCrowned)
-                    Plugin.Instance.ChatSender.EnqueueMessage($"Tie detected: {names} have the same top score of {maxScore:N0} and have all marked their crowns. They must resolve the tie.");
+                    Plugin.Instance.ChatSender.EnqueueMessage($"Tie detected: {names} have the same top score of {maxScore:N0}. They must resolve the tie.");
                 else
-                    Plugin.Instance.ChatSender.EnqueueMessage($"Tie detected: {names} have the same top score of {maxScore:N0}. Please resolve the tie.");
+                    Plugin.Instance.ChatSender.EnqueueMessage($"Tie detected: {names} have the same top score of {maxScore:N0}.");
             }
             else if (tiedPlayers.Count == 1)
             {
@@ -258,21 +258,19 @@ namespace CeeLoPlugin.Logic
             {
                 string names = string.Join(" and ", crownedPlayers.Select(p => p.NameWithWorld));
                 Plugin.Instance.ChatSender.EnqueueMessage($"{names} have chosen sudden death roulette for the pot of {totalPot:N0} gil! May the odds be ever in your favor!");
-                Plugin.Instance.ChatSender.EnqueueMessage(
-                    "Tie Breaker Rules\n" +
-                    "In the event of a tie between two players at the end of a round, the tie will be resolved with a Roulette Showdown.\n" +
-                    "Roulette Showdown:\n" +
-                    "- If the tied players agree, they can opt to split the pot evenly instead of proceeding with the showdown.\n" +
-                    "Roulette Game Rules:\n" +
-                    "- Players roll /random 99 to determine the first turn. The player with the highest roll goes first.\n" +
-                    "- Turn 1 rolls /random 6.\n" +
-                    "- Turn 2 rolls /random 5.\n" +
-                    "- Turn 3 rolls /random 4.\n" +
-                    "- Turn 4 rolls /random 3.\n" +
-                    "- Turn 5 rolls /random 2.\n" +
-                    "- Turn 6 loses by default.\n" +
-                    "- If a player rolls a 1, they are eliminated."
-                );
+                Plugin.Instance.ChatSender.EnqueueMessage("Tie Breaker Rules:");
+                Plugin.Instance.ChatSender.EnqueueMessage("In the event of a tie between two players at the end of a round, the tie will be resolved with a Roulette Showdown.");
+                Plugin.Instance.ChatSender.EnqueueMessage("Roulette Showdown:");
+                Plugin.Instance.ChatSender.EnqueueMessage("If the tied players agree, they can opt to split the pot evenly instead of proceeding with the showdown.");
+                Plugin.Instance.ChatSender.EnqueueMessage("Roulette Game Rules:");
+                Plugin.Instance.ChatSender.EnqueueMessage("Players roll /random 99 to determine the first turn. The player with the highest roll goes first.");
+                Plugin.Instance.ChatSender.EnqueueMessage("Turn 1 rolls /random 6.");
+                Plugin.Instance.ChatSender.EnqueueMessage("Turn 2 rolls /random 5.");
+                Plugin.Instance.ChatSender.EnqueueMessage("Turn 3 rolls /random 4.");
+                Plugin.Instance.ChatSender.EnqueueMessage("Turn 4 rolls /random 3.");
+                Plugin.Instance.ChatSender.EnqueueMessage("Turn 5 rolls /random 2.");
+                Plugin.Instance.ChatSender.EnqueueMessage("Turn 6 loses by default.");
+                Plugin.Instance.ChatSender.EnqueueMessage("If a player rolls a 1, they are eliminated.");
             }
             else
             {
@@ -288,16 +286,34 @@ namespace CeeLoPlugin.Logic
             {
                 string names = string.Join(", ", crownedPlayers.Select(p => p.NameWithWorld));
                 Plugin.Instance.ChatSender.EnqueueMessage($"Multi-tie detected among: {names} for a pot of {originalBet:N0} gil. A fresh game will now start with these players only.");
-                // Remove any players not crowned.
+
+                // Remove non-crowned players by assigning only the crowned list.
                 Plugin.Instance.Configuration.PlayerDatas = crownedPlayers;
-                Notify.Info($"Dealer: The trade gil box remains set to {originalBet:N0} gil.");
+
+                // Clear scores and reset roll values for each remaining player.
+                foreach (var player in Plugin.Instance.Configuration.PlayerDatas)
+                {
+                    player.FinalScore = null;
+                    player.FinalScoreInput = string.Empty;
+
+                    if (player.GameRolls != null)
+                    {
+                        for (int i = 0; i < player.GameRolls.Length; i++)
+                        {
+                            player.GameRolls[i] = 0;
+                        }
+                    }
+                    // Optionally, you can clear roll order if needed:
+                    // player.OrderDeterminingRolls.Clear();
+                }
+
+                Notify.Info($"Dealer: The trade gil box remains set to {originalBet:N0} gil. Scores have been cleared for a new game.");
             }
             else
             {
                 Notify.Error("Multi-tie resolution requires at least 3 crowned players.");
             }
         }
-
 
         // --- Helper Method ---
         private static int GetPotTotal()
